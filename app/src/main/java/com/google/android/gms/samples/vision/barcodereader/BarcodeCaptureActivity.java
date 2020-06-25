@@ -37,6 +37,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -79,6 +80,9 @@ public final class BarcodeCaptureActivity extends AppCompatActivity implements B
     private ScaleGestureDetector scaleGestureDetector;
     private GestureDetector gestureDetector;
 
+    private TextView mBarcodeInfoTextView;
+    private Barcode currentBarcode;
+
     /**
      * Initializes the UI and creates the detector pipeline.
      */
@@ -89,6 +93,8 @@ public final class BarcodeCaptureActivity extends AppCompatActivity implements B
 
         mPreview = (CameraSourcePreview) findViewById(R.id.preview);
         mGraphicOverlay = (GraphicOverlay<BarcodeGraphic>) findViewById(R.id.graphicOverlay);
+
+        mBarcodeInfoTextView = (TextView) findViewById(R.id.barcode_info);
 
         // read parameters from the intent used to launch the activity.
         boolean autoFocus = getIntent().getBooleanExtra(AutoFocus, false);
@@ -363,9 +369,9 @@ public final class BarcodeCaptureActivity extends AppCompatActivity implements B
 //            data.putExtra(BarcodeObject, best);
 //            setResult(CommonStatusCodes.SUCCESS, data);
 //            finish();
-            Snackbar.make(mGraphicOverlay, best.displayValue,
-                    Snackbar.LENGTH_LONG)
-                    .show();
+            // 나중에 바코드 정보를 가져오게 수정
+            currentBarcode = best;
+            mBarcodeInfoTextView.setText(best.displayValue);
             return true;
         }
         return false;
