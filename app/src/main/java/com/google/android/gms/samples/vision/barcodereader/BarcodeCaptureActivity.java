@@ -359,10 +359,13 @@ public final class BarcodeCaptureActivity extends AppCompatActivity implements B
         }
 
         if (best != null) {
-            Intent data = new Intent();
-            data.putExtra(BarcodeObject, best);
-            setResult(CommonStatusCodes.SUCCESS, data);
-            finish();
+//            Intent data = new Intent();
+//            data.putExtra(BarcodeObject, best);
+//            setResult(CommonStatusCodes.SUCCESS, data);
+//            finish();
+            Snackbar.make(mGraphicOverlay, best.displayValue,
+                    Snackbar.LENGTH_LONG)
+                    .show();
             return true;
         }
         return false;
